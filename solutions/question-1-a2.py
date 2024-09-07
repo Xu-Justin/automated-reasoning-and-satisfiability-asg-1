@@ -11,7 +11,7 @@ def at_most_two(variables: List[int], aux: int = None):
                 for k in range(j + 1, len(variables)):
                     clauses.append([-variables[i], -variables[j], -variables[k]])
         return clauses
-    return at_most_two(variables[0:2] + [aux]) + at_most_two([aux] + variables[2:], aux + 1)
+    return at_most_two(variables[0:2] + [aux]) + at_most_two([-aux] + variables[2:], aux + 1)
 
 
 def solve(n: int):
