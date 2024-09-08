@@ -1,0 +1,187 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{titling}
+\usepackage[parfill]{parskip}
+\usepackage{enumerate}
+\usepackage[shortlabels]{enumitem}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{listings}
+\usepackage{hyperref}
+
+\newcommand{\eqline}{\noalign{\smallskip\hrule\smallskip}}
+
+\setlist{
+    noitemsep,
+    listparindent=\parindent,
+    parsep=0pt,
+}
+
+\predate{}
+\postdate{}
+
+\title{
+    Automated Reasoning and Satisfiability \\
+    Assigment 1 (Solution)
+}
+\author{William Justin}
+\date{}
+
+\begin{document}
+
+    \maketitle
+
+    \subsection*{Solution 1 (a)}
+
+    \begin{flalign}
+        \begin{matrix*}[l]
+            AtMostTwoA \left( x_1, \dots, x_5 \right) & = &
+            \bigwedge\limits_{1 \le i < j < k \le 5} \left( \bar{x_i} \vee \bar{x_j} \vee \bar{x_k} \right) \\ \\
+            & = &
+            \begin{matrix*}[l]
+                \left( \bar{x_1} \vee \bar{x_2} \vee \bar{x_3} \right) \ \wedge \\
+                \left( \bar{x_1} \vee \bar{x_2} \vee \bar{x_4} \right) \ \wedge \\
+                \left( \bar{x_1} \vee \bar{x_2} \vee \bar{x_5} \right) \ \wedge \\
+                \left( \bar{x_1} \vee \bar{x_3} \vee \bar{x_4} \right) \ \wedge \\
+                \left( \bar{x_1} \vee \bar{x_3} \vee \bar{x_5} \right) \ \wedge \\
+                \left( \bar{x_1} \vee \bar{x_4} \vee \bar{x_5} \right) \ \wedge \\
+                \left( \bar{x_2} \vee \bar{x_3} \vee \bar{x_4} \right) \ \wedge \\
+                \left( \bar{x_2} \vee \bar{x_3} \vee \bar{x_5} \right) \ \wedge \\
+                \left( \bar{x_2} \vee \bar{x_4} \vee \bar{x_5} \right) \ \wedge \\
+                \left( \bar{x_3} \vee \bar{x_4} \vee \bar{x_5} \right)
+            \end{matrix*}
+        \end{matrix*}
+        &&
+    \end{flalign}
+
+    \begin{flalign}
+        \begin{matrix*}[l]
+            AtMostTwoB \left( x_1, \dots, x_5 \right) & = &
+            \begin{matrix*}[l]
+                \left( \bar{x_1} \vee s_{1, 1} \right) \ \wedge                                                                            \\
+                \left( \bar{x_2} \vee s_{2, 1} \right) \ \wedge                                                                            \\
+                \left( \bar{x_3} \vee s_{3, 1} \right) \ \wedge                                                                            \\
+                \left( \bar{s_{1, 1}} \vee s_{2, 1} \right) \ \wedge \ \left( \bar{s_{1, 1}} \vee \bar{x_2} \vee s_{2, 2} \right) \ \wedge \\
+                \left( \bar{s_{2, 1}} \vee s_{3, 1} \right) \ \wedge \ \left( \bar{s_{2, 1}} \vee \bar{x_3} \vee s_{3, 2} \right) \ \wedge \\
+                \left( \bar{s_{2, 2}} \vee s_{3, 1} \right) \ \wedge \ \left( \bar{s_{2, 2}} \vee \bar{x_3} \vee s_{3, 3} \right) \ \wedge \\
+                \left( \bar{s_{3, 1}} \vee s_{4, 1} \right) \ \wedge \ \left( \bar{s_{3, 1}} \vee \bar{x_4} \vee s_{4, 2} \right) \ \wedge \\
+                \left( \bar{s_{3, 2}} \vee s_{4, 2} \right) \ \wedge \ \left( \bar{s_{3, 2}} \vee \bar{x_4} \vee s_{4, 3} \right) \ \wedge \\
+                \left( \bar{s_{4, 2}} \vee s_{5, 2} \right) \ \wedge \ \left( \bar{s_{4, 2}} \vee \bar{x_5} \vee s_{5, 3} \right) \ \wedge \\
+                \bar{s_{3, 3}} \ \wedge                                                                                                    \\
+                \bar{s_{4, 3}} \ \wedge                                                                                                    \\
+                \bar{s_{5, 3}}
+            \end{matrix*}
+        \end{matrix*}
+        &&
+    \end{flalign}
+
+    \newpage
+    \subsection*{Solution 1 (b)}
+
+    Tseitin Transformation
+
+    \begin{flalign}
+        \begin{matrix*}[l]
+            & y_1 \ \leftrightarrow \ AtMostTwoA \left( x_1, \dots, x_5 \right) \\
+            = & y_1 \ \leftrightarrow \
+            \left( \bar{x_1} \vee \bar{x_2} \vee \bar{x_3} \right) \ \wedge \
+            \left( \bar{x_1} \vee \bar{x_2} \vee \bar{x_4} \right) \ \wedge \
+            \dots \ \wedge \
+            \left( \bar{x_3} \vee \bar{x_4} \vee \bar{x_5} \right) \\ \\
+        \end{matrix*}
+        &&
+    \end{flalign}
+
+    \begin{flalign}
+        \begin{matrix*}[l]
+            y_1 \ \leftrightarrow \ t_1 \wedge t_2 \wedge \dots \wedge t_{10}             \\
+            t_1 \ \leftrightarrow \ \bar{x_1} \vee \bar{x_2} \vee \bar{x_3}               \\
+            t_2 \ \leftrightarrow \ \bar{x_1} \vee \bar{x_2} \vee \bar{x_4}               \\
+            \vdots                                                                        \\
+            t_{10} \ \leftrightarrow \ \bar{x_3} \vee \bar{x_4} \vee \bar{x_5}            \\
+            \eqline                                                                       \\
+            F_0: \ \left( \bar{y_1} \vee t_1 \right) \wedge
+            \left( \bar{y_1} \vee t_2 \right) \wedge
+            \dots \wedge
+            \left( \bar{y_1} \vee t_{10} \right) \wedge
+            \left( \bar{t_1} \vee \bar{t_2} \vee \dots \vee \bar{t_{10}} \vee y_1 \right) \\
+            F_1: \ \left( \bar{t_1} \vee \bar{x_1} \vee \bar{x_2} \vee \bar{x_3} \right) \wedge
+            \left( x_1 \vee t_1 \right) \wedge
+            \left( x_2 \vee t_1 \right) \wedge
+            \left( x_3 \vee t_1 \right)                                                   \\
+            F_2: \ \left( \bar{t_2} \vee \bar{x_1} \vee \bar{x_2} \vee \bar{x_4} \right) \wedge
+            \left( x_1 \vee t_2 \right) \wedge
+            \left( x_2 \vee t_2 \right) \wedge
+            \left( x_4 \vee t_2 \right)                                                   \\
+            \vdots                                                                        \\
+            F_{10}: \ \left( \bar{t_{10}} \vee \bar{x_3} \vee \bar{x_4} \vee \bar{x_5} \right) \wedge
+            \left( x_3 \vee t_{10} \right) \wedge
+            \left( x_4 \vee t_{10} \right) \wedge
+            \left( x_5 \vee t_{10} \right)                                                \\
+            \eqline                                                                       \\
+            y_1 \wedge F_{0} \wedge F_{1} \wedge F_{2} \wedge \dots \wedge F_{10}
+        \end{matrix*}
+        &&
+    \end{flalign}
+
+    \newpage
+
+    \begin{flalign}
+        \begin{matrix*}[l]
+            & y_2 \ \leftrightarrow \ AtMostTwoB \left( x_1, \dots, x_5 \right)                                                                              \\
+            = & y_2 \ \leftrightarrow  \
+            \left( \bar{x_1} \vee s_{1, 1} \right) \ \wedge \ \left( \bar{x_2} \vee s_{2, 1} \right) \ \wedge \ \left( \bar{x_3} \vee s_{3, 1} \right) \ \wedge \\
+            & \ \ \ \ \ \ \ \ \ \ \left( \bar{s_{1, 1}} \vee s_{2, 1} \right) \ \wedge \ \left( \bar{s_{1, 1}} \vee \bar{x_2} \vee s_{2, 2} \right) \ \wedge \\
+            & \ \ \ \ \ \ \ \ \ \ \left( \bar{s_{2, 1}} \vee s_{3, 1} \right) \ \wedge \ \left( \bar{s_{2, 1}} \vee \bar{x_3} \vee s_{3, 2} \right) \ \wedge \\
+            & \ \ \ \ \ \ \ \ \ \ \left( \bar{s_{2, 2}} \vee s_{3, 1} \right) \ \wedge \ \left( \bar{s_{2, 2}} \vee \bar{x_3} \vee s_{3, 3} \right) \ \wedge \\
+            & \ \ \ \ \ \ \ \ \ \ \left( \bar{s_{3, 1}} \vee s_{4, 1} \right) \ \wedge \ \left( \bar{s_{3, 1}} \vee \bar{x_4} \vee s_{4, 2} \right) \ \wedge \\
+            & \ \ \ \ \ \ \ \ \ \ \left( \bar{s_{3, 2}} \vee s_{4, 2} \right) \ \wedge \ \left( \bar{s_{3, 2}} \vee \bar{x_4} \vee s_{4, 3} \right) \ \wedge \\
+            & \ \ \ \ \ \ \ \ \ \ \left( \bar{s_{4, 2}} \vee s_{5, 2} \right) \ \wedge \ \left( \bar{s_{4, 2}} \vee \bar{x_5} \vee s_{5, 3} \right) \ \wedge \\
+            & \ \ \ \ \ \ \ \ \ \ \bar{s_{3, 3}} \ \wedge \ \bar{s_{4, 3}} \ \wedge \ \bar{s_{5, 3}}
+        \end{matrix*}
+        &&
+    \end{flalign}
+
+    \begin{flalign}
+        \begin{matrix*}[l]
+            y_2 \ \leftrightarrow \ t_1 \wedge t_2 \wedge \dots \wedge t_{18}             \\
+            t_1 \ \leftrightarrow \ \bar{x_1} \vee s_{1, 1}                               \\
+            t_2 \ \leftrightarrow \ \bar{x_2} \vee s_{2, 1}                               \\
+            \vdots                                                                        \\
+            t_{18} \ \leftrightarrow \ \bar{s_{5, 3}}                                     \\
+            \eqline                                                                       \\
+            F_0: \ \left( \bar{y_2} \vee t_1 \right) \wedge
+            \left( \bar{y_2} \vee t_2 \right) \wedge
+            \dots \wedge
+            \left( \bar{y_2} \vee t_{18} \right) \wedge
+            \left( \bar{t_2} \vee \bar{t_2} \vee \dots \vee \bar{t_{18}} \vee y_2 \right) \\
+            F_1: \ \left( \bar{t_1} \vee \bar{x_1} \vee s_{1, 1} \right) \wedge
+            \left( x_1 \vee t_1 \right) \wedge
+            \left( \bar{s_{1, 1}} \vee t_1 \right)                                        \\
+            F_2: \ \left( \bar{t_2} \vee \bar{x_2} \vee s_{2, 1} \right) \wedge
+            \left( x_2 \vee t_2 \right) \wedge
+            \left( \bar{s_{2, 1}} \vee 2_1 \right)                                        \\
+            \vdots                                                                        \\
+            F_{18}: \ \left( \bar{t_{18}} \vee \bar{s_{5, 3}} \right) \wedge
+            \left( s_{5, 3} \vee t_{18} \right)                                           \\
+            \eqline                                                                       \\
+            y_2 \wedge F_{0} \wedge F_{1} \wedge F_{2} \wedge \dots \wedge F_{18}
+        \end{matrix*}
+        &&
+    \end{flalign}
+
+    \newpage
+    \subsection*{Solution 1 (c)}
+
+    \begin{flalign}
+        \left( \bar{y_1} \leftrightarrow AtMostTwoA \left( x_1, \dots, x_5 \right) \right) \ \wedge \ \left( y_2 \leftrightarrow AtMostTwoB \left( x_1, \dots, x_5 \right) \right)
+        &&
+    \end{flalign}
+
+    Result: \textbf{UNSAT}
+
+    \subsection*{Solution 1 (d)}
+
+    \url{https://github.com/Xu-Justin/automated-reasoning-and-satisfiability-asg-1}
+
+\end{document}
