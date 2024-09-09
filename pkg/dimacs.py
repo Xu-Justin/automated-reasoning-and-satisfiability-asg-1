@@ -12,7 +12,7 @@ def convert_formula_as_dimacs(formula: Formula, title: str = None, compress: boo
     if title:
         results.append(f'c {title}')
 
-    results.append(f'p cnf {len(formula)} {len(variables)}')
+    results.append(f'p cnf {len(variables)} {len(formula)}')
     for clause in formula:
         _clause = []
         for literal in clause:
