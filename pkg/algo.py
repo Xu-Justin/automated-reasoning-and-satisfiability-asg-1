@@ -46,7 +46,7 @@ def tseitin(formula: Formula, y: Literal, t: Literal) -> Formula:
         assert t + i not in variables
         assert t + i != y
 
-    transformed_formula = [[y]]
+    transformed_formula = []
 
     for i in range(len(formula)):
         transformed_formula.append([-y, t + i])

@@ -67,9 +67,7 @@
                 \left( \bar{s_{3, 1}} \vee s_{4, 1} \right) \ \wedge \ \left( \bar{s_{3, 1}} \vee \bar{x_4} \vee s_{4, 2} \right) \ \wedge \\
                 \left( \bar{s_{3, 2}} \vee s_{4, 2} \right) \ \wedge \ \left( \bar{s_{3, 2}} \vee \bar{x_4} \vee s_{4, 3} \right) \ \wedge \\
                 \left( \bar{s_{4, 2}} \vee s_{5, 2} \right) \ \wedge \ \left( \bar{s_{4, 2}} \vee \bar{x_5} \vee s_{5, 3} \right) \ \wedge \\
-                \bar{s_{3, 3}} \ \wedge                                                                                                    \\
-                \bar{s_{4, 3}} \ \wedge                                                                                                    \\
-                \bar{s_{5, 3}}
+                \bar{s_{3, 3}} \ \wedge \ \bar{s_{4, 3}} \ \wedge \ \bar{s_{5, 3}}
             \end{matrix*}
         \end{matrix*}
         &&
@@ -119,7 +117,7 @@
             \left( x_4 \vee t_{10} \right) \wedge
             \left( x_5 \vee t_{10} \right)                                                \\
             \eqline                                                                       \\
-            y_1 \wedge F_{0} \wedge F_{1} \wedge F_{2} \wedge \dots \wedge F_{10}
+            F_{0} \wedge F_{1} \wedge F_{2} \wedge \dots \wedge F_{10}
         \end{matrix*}
         &&
     \end{flalign}
@@ -165,7 +163,7 @@
             F_{18}: \ \left( \bar{t_{18}} \vee \bar{s_{5, 3}} \right) \wedge
             \left( s_{5, 3} \vee t_{18} \right)                                           \\
             \eqline                                                                       \\
-            y_2 \wedge F_{0} \wedge F_{1} \wedge F_{2} \wedge \dots \wedge F_{18}
+            F_{0} \wedge F_{1} \wedge F_{2} \wedge \dots \wedge F_{18}
         \end{matrix*}
         &&
     \end{flalign}
@@ -174,7 +172,11 @@
     \subsection*{Solution 1 (c)}
 
     \begin{flalign}
-        \left( \bar{y_1} \leftrightarrow AtMostTwoA \left( x_1, \dots, x_5 \right) \right) \ \wedge \ \left( y_2 \leftrightarrow AtMostTwoB \left( x_1, \dots, x_5 \right) \right)
+        \begin{matrix*}[l]
+            \left( y_1 \leftrightarrow AtMostTwoA \left( x_1, \dots, x_5 \right) \right) \ \wedge \\
+            \left( y_2 \leftrightarrow AtMostTwoB \left( x_1, \dots, x_5 \right) \right) \ \wedge \\
+            \bar{y_1} \ \wedge \ y_2
+        \end{matrix*}
         &&
     \end{flalign}
 
